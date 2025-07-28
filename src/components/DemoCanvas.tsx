@@ -36,23 +36,27 @@ export const DemoCanvas: React.FC = () => {
   });
 
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
-      setCanvasSize({ width: window.innerWidth, height: window.innerHeight });
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+      setCanvasSize({ width: newWidth, height: newHeight });
+      setIsMobile(newWidth < 768);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Maintain 3:2 aspect ratio, max 1200x800, min 320x200
-  const maxWidth = 1200;
-  const maxHeight = 800;
-  const minWidth = 320;
-  let width = Math.max(minWidth, Math.min(maxWidth, canvasSize.width));
+  // Responsive canvas sizing
+  const maxWidth = isMobile ? canvasSize.width - 20 : 1200;
+  const maxHeight = isMobile ? canvasSize.height * 0.6 : 800;
+  const minWidth = 280;
+  let width = Math.max(minWidth, Math.min(maxWidth, canvasSize.width - (isMobile ? 20 : 320)));
   let height = Math.round(width * 2 / 3);
-  if (height > Math.min(maxHeight, canvasSize.height)) {
-    height = Math.min(maxHeight, canvasSize.height);
+  if (height > maxHeight) {
+    height = maxHeight;
     width = Math.round(height * 3 / 2);
   }
   const canvasWidth = width;
@@ -87,13 +91,19 @@ export const DemoCanvas: React.FC = () => {
   const selectedPalette = CLASSIC_PALETTES[controls.selectedPalette];
 
   return (
-    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#111' }}>
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: isMobile ? 'column' : 'row',
+      height: '100vh', 
+      backgroundColor: '#111' 
+    }}>
       <div style={{ 
         flex: 1, 
         display: 'flex', 
         justifyContent: 'center', 
         alignItems: 'center',
-        position: 'relative'
+        position: 'relative',
+        minHeight: isMobile ? '60vh' : 'auto'
       }}>
         <div style={{ position: 'relative' }}>
           {/* Multi-layer plasma background */}
@@ -146,13 +156,14 @@ export const DemoCanvas: React.FC = () => {
         {/* Info overlay */}
         <div style={{
           position: 'absolute',
-          top: '20px',
-          left: '20px',
+          top: '10px',
+          left: '10px',
           color: '#fff',
           fontFamily: 'monospace',
-          fontSize: '14px',
+          fontSize: isMobile ? '12px' : '14px',
           textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-          zIndex: 10
+          zIndex: 10,
+          display: isMobile ? 'none' : 'block'
         }}>
           <div>Multi-Layer Plasma Demo</div>
           <div>Effect: {currentEffect}</div>
@@ -172,6 +183,7 @@ export const DemoCanvas: React.FC = () => {
         onControlsChange={setControls}
         currentEffect={currentEffect}
         onEffectChange={setCurrentEffect}
+        isMobile={isMobile}
       />
     </div>
   );

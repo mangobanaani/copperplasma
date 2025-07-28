@@ -7,13 +7,15 @@ interface ControlPanelProps {
   onControlsChange: (controls: EffectControls) => void;
   currentEffect: 'copper' | 'plasma' | 'both';
   onEffectChange: (effect: 'copper' | 'plasma' | 'both') => void;
+  isMobile?: boolean;
 }
 
 export const ControlPanel: React.FC<ControlPanelProps> = ({
   controls,
   onControlsChange,
   currentEffect,
-  onEffectChange
+  onEffectChange,
+  isMobile = false
 }) => {
   const updateCopperBar = (index: number, updates: Partial<CopperBarConfig>) => {
     const newCopperBars = [...controls.copperBars];
@@ -75,18 +77,21 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
 
   return (
     <div style={{ 
-      padding: '20px', 
+      padding: isMobile ? '10px' : '20px', 
       backgroundColor: '#222', 
       color: '#fff', 
       fontFamily: 'monospace',
-      minWidth: '300px',
-      height: '100vh',
-      overflowY: 'auto'
+      minWidth: isMobile ? 'auto' : '300px',
+      width: isMobile ? '100%' : 'auto',
+      height: isMobile ? 'auto' : '100vh',
+      maxHeight: isMobile ? '40vh' : '100vh',
+      overflowY: 'auto',
+      fontSize: isMobile ? '12px' : '14px'
     }}>
-      <h2>Amiga Demo Controls</h2>
+      <h2 style={{ fontSize: isMobile ? '16px' : '18px', margin: isMobile ? '0 0 10px 0' : '0 0 20px 0' }}>Amiga Demo Controls</h2>
       
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Effect Type</h3>
+      <div style={{ marginBottom: isMobile ? '10px' : '20px' }}>
+        <h3 style={{ fontSize: isMobile ? '14px' : '16px', margin: isMobile ? '0 0 5px 0' : '0 0 10px 0' }}>Effect Type</h3>
         <div>
           <label>
             <input
@@ -122,15 +127,19 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Palette</h3>
+      <div style={{ marginBottom: isMobile ? '10px' : '20px' }}>
+        <h3 style={{ fontSize: isMobile ? '14px' : '16px', margin: isMobile ? '0 0 5px 0' : '0 0 10px 0' }}>Palette</h3>
         <select
           value={controls.selectedPalette}
           onChange={(e) => onControlsChange({ 
             ...controls, 
             selectedPalette: parseInt(e.target.value) 
           })}
-          style={{ width: '100%', padding: '5px' }}
+          style={{ 
+            width: '100%', 
+            padding: isMobile ? '3px' : '5px',
+            fontSize: isMobile ? '12px' : '14px'
+          }}
         >
           {CLASSIC_PALETTES.map((palette, index) => (
             <option key={index} value={index}>
@@ -139,13 +148,18 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
           ))}
         </select>
         
-        <div style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
+        <div style={{ 
+          marginTop: isMobile ? '5px' : '10px', 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: isMobile ? '1px' : '2px' 
+        }}>
           {CLASSIC_PALETTES[controls.selectedPalette].colors.slice(0, 16).map((color, index) => (
             <div
               key={index}
               style={{
-                width: '20px',
-                height: '20px',
+                width: isMobile ? '14px' : '20px',
+                height: isMobile ? '14px' : '20px',
                 backgroundColor: color,
                 border: '1px solid #444'
               }}
@@ -154,8 +168,8 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
         </div>
       </div>
 
-      <div style={{ marginBottom: '20px' }}>
-        <h3>Animation Speed</h3>
+      <div style={{ marginBottom: isMobile ? '10px' : '20px' }}>
+        <h3 style={{ fontSize: isMobile ? '14px' : '16px', margin: isMobile ? '0 0 5px 0' : '0 0 10px 0' }}>Animation Speed</h3>
         <input
           type="range"
           min="0.1"
