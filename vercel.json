@@ -5,7 +5,6 @@
   "installCommand": "npm install",
   "devCommand": "npm run dev",
   "regions": ["iad1"],
-  "functions": {},
   "rewrites": [
     {
       "source": "/(.*)",
