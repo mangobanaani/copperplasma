@@ -1,3 +1,13 @@
+## Live Demo
+
+Try the Copper Plasma demo live at:
+
+**[https://copperplasma-5phr.vercel.app/](https://copperplasma-5phr.vercel.app/)**
+
+Or check out another demo:
+
+**[https://blobvectors.vercel.app/](https://blobvectors.vercel.app/)**
+
 # Copper Plasma - Classic Demoscene Effects Studio
 
 A modern React-based recreation of classic Amiga demoscene effects, featuring real-time parameter control and authentic visual aesthetics.
