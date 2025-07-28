@@ -77,7 +77,7 @@ Copper Plasma is a comprehensive demoscene effects studio that brings the nostal
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/copperplasma.git
+git clone https://github.com/mangobanaani/copperplasma.git
 
 # Navigate to project directory
 cd copperplasma
