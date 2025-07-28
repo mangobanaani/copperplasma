@@ -35,8 +35,28 @@ export const DemoCanvas: React.FC = () => {
     animationSpeed: 1.0
   });
 
-  const canvasWidth = 640;
-  const canvasHeight = 400;
+  const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCanvasSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Maintain 3:2 aspect ratio, max 1200x800, min 320x200
+  const maxWidth = 1200;
+  const maxHeight = 800;
+  const minWidth = 320;
+  let width = Math.max(minWidth, Math.min(maxWidth, canvasSize.width));
+  let height = Math.round(width * 2 / 3);
+  if (height > Math.min(maxHeight, canvasSize.height)) {
+    height = Math.min(maxHeight, canvasSize.height);
+    width = Math.round(height * 3 / 2);
+  }
+  const canvasWidth = width;
+  const canvasHeight = height;
 
   useEffect(() => {
     const animate = () => {

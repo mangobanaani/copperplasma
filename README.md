@@ -6,6 +6,13 @@ A modern React-based recreation of classic Amiga demoscene effects, featuring re
 
 Copper Plasma is a comprehensive demoscene effects studio that brings the nostalgic charm of 1980s and 1990s computer graphics to the modern web. Built with React, TypeScript, and optimized Canvas rendering, it delivers fairly ok fps animations while maintaining the authentic look and feel of classic Amiga demos.
 
+## Live Demo
+
+Try the Copper Plasma demo live at:
+
+**[https://copperplasma-5phr.vercel.app/](https://copperplasma-5phr.vercel.app/)**
+
+
 ## Features
 
 ### Visual Effects
