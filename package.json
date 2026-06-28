@@ -39,6 +39,14 @@
     "terser": "^5.43.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
-    "vite": "^7.1.11"
+    "vite": "^7.3.5"
+  },
+  "overrides": {
+    "flatted": "^3.4.2",
+    "minimatch@<3.1.4": "3.1.5",
+    "minimatch@>=9.0.0 <9.0.7": "9.0.7",
+    "picomatch@<2.3.2": "2.3.2",
+    "picomatch@>=4.0.0 <4.0.4": "4.0.4",
+    "rollup": "^4.59.0"
   }
 }
